@@ -1,5 +1,8 @@
 package bankmanagementsystem;
 import javax.swing.*;//to creat deskptop graphicasl user interface , Imageicon class
+
+import java.sql.*;
+
 import java.awt.*;//to creat deskptop graphicasl user interface , image class
 import java.awt.event.*;//to perform action task 
 
@@ -62,7 +65,21 @@ public class Login extends JFrame implements ActionListener {
         cardtextfield.setText(null);//settext is used to set the value of the tescxtfield
         pintextfield.setText(null);
       }else if (ae.getSource()==Login){
-
+        conn c = new conn();
+        String cardnumber1 = cardtextfield.getText();
+        String pinnumber1 = pintextfield.getText();
+        String query = "select * from login where cardnumber = '"+cardnumber1+"' and pinnumber = '"+pinnumber1+"' ";
+        try{
+          ResultSet rs = c.s.executeQuery(query);//excecutequery command is used for DDL sql queries
+          if(rs.next()){//this rs.next() function check if the data is driven from the database
+            setVisible(false);
+            new transactions().setVisible(true);
+          }else {
+            JOptionPane.showMessageDialog(null, "Incorrect Card Number  or Pin"); 
+          }
+        }catch(Exception e){
+          System.out.println(e);
+        }
       }else if (ae.getSource()==signup){
         setVisible(false);
         new SignUpOne().setVisible(true);
