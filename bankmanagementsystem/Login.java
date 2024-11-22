@@ -61,30 +61,63 @@ public class Login extends JFrame implements ActionListener {
         getContentPane().setBackground(Color.WHITE);
     } 
     public void actionPerformed(ActionEvent ae){//to perform action of buttons
+     /*try{
       if(ae.getSource() == Clear){
-        cardtextfield.setText(null);//settext is used to set the value of the tescxtfield
+        cardtextfield.setText(null);
         pintextfield.setText(null);
       }else if (ae.getSource()==Login){
         conn c = new conn();
         String cardnumber1 = cardtextfield.getText();
         String pinnumber1 = pintextfield.getText();
         String query = "select * from login where cardnumber = '"+cardnumber1+"' and pinnumber = '"+pinnumber1+"' ";
-        try{
-          ResultSet rs = c.s.executeQuery(query);//excecutequery command is used for DDL sql queries
-          if(rs.next()){//this rs.next() function check if the data is driven from the database
+       
+          ResultSet rs = c.s.executeQuery(query);
+         /*  if(rs.next()){
             setVisible(false);
             new transactions().setVisible(true);
           }else {
-            JOptionPane.showMessageDialog(null, "Incorrect Card Number  or Pin"); 
-          }
-        }catch(Exception e){
-          System.out.println(e);
+            //JOptionPane.showMessageDialog(null, "Incorrect Card Number  or Pin"); 
+          }/**
+          if(rs.next()){
+            setVisible(false);
+            new transactions().setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "Incorrect Card Number or PIN");
         }
+    
       }else if (ae.getSource()==signup){
         setVisible(false);
         new SignUpOne().setVisible(true);
       }
-    }
+    }catch(Exception e){
+      System.out.println(e);
+    }*/
+    try{        
+      if(ae.getSource()==Login){
+          conn c = new conn();
+          String cardno  = cardtextfield.getText();//excecutequery command is used for DDL sql queries
+          String pinno  = pintextfield.getText();
+          String q  = "select * from login where cardnumber = '"+cardno+"' and pinnumber = '"+pinno+"'";
+
+          ResultSet rs = c.s.executeQuery(q);//excecutequery command is used for DDL sql queries
+          if(rs.next()){//this rs.next() function check if the data is driven from the database
+              setVisible(false);
+              new transactions(pinno).setVisible(true);
+          }else{
+              JOptionPane.showMessageDialog(null, "Incorrect Card Number or PIN");
+          }
+      }else if(ae.getSource()==Clear){
+          cardtextfield.setText("");//settext is used to set the value of the tescxtfield
+          pintextfield.setText("");
+      }else if(ae.getSource()==signup){
+          setVisible(false);
+          new SignUpOne().setVisible(true);
+      }
+  }catch(Exception e){
+      e.printStackTrace();
+  }
+  }
+
     public static void main(String[] args) {
       new Login();
     }

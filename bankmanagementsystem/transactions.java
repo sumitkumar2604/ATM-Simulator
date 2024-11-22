@@ -5,8 +5,10 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class transactions extends JFrame implements ActionListener{
-    JButton deposit , fastcash , cashwithdraw ,ministatement , pinchange , balanceenquiry , exit;
-    transactions(){
+    JButton deposit , fstcash , cashwithdraw ,ministatement , pinchange , balanceenquiry , exit;
+    String pinno;
+    transactions(String pinno){
+        this.pinno = pinno;
         //FRAME
         setSize(900,900);
         setLocation(300,0);
@@ -37,17 +39,17 @@ public class transactions extends JFrame implements ActionListener{
         image.add(cashwithdraw); 
         cashwithdraw.addActionListener(this);
 
-        fastcash = new JButton("Fast Cash");
-        fastcash.setBounds(170,450,150,30);
-        image.add(fastcash); 
-        fastcash.addActionListener(this);
+        fstcash = new JButton("Fast Cash");
+        fstcash.setBounds(170,450,150,30);
+        image.add(fstcash); 
+        fstcash.addActionListener(this);
 
         ministatement = new JButton("Mini Statement");
         ministatement.setBounds(355,450,150,30);
         image.add(ministatement); 
         ministatement.addActionListener(this);
 
-        pinchange = new JButton("Fast Cash");
+        pinchange = new JButton("Pin Change");
         pinchange.setBounds(170,485,150,30);
         image.add(pinchange); 
         pinchange.addActionListener(this);
@@ -61,15 +63,28 @@ public class transactions extends JFrame implements ActionListener{
         exit.setBounds(355,520,150,30);
         image.add(exit);
         exit.addActionListener(this);
-      
+
+
     }
 
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource()==exit){
             System.exit(0);
+        }else if(ae.getSource()==deposit){
+            setVisible(false);
+            new deposit(pinno).setVisible(true);
+        }else if(ae.getSource()==cashwithdraw){
+            setVisible(false);
+            new withdrawal(pinno).setVisible(true);
+        }else if(ae.getSource()==fstcash){
+            setVisible(false);
+            new fastcash(pinno).setVisible(true);
+        }else if(ae.getSource()==pinchange){
+            setVisible(false);
+            new pinchange(pinno).setVisible(true);
         }
     }
     public static void main(String[] args) {
-        new transactions();
+        new transactions("");
     }
 }

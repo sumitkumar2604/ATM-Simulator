@@ -168,12 +168,14 @@ public class three extends JFrame implements ActionListener{
                 accounttype = "Recurring Deposit Account";
             }
             Random random = new Random();
-            String cardnumber = " "+Math.abs((random.nextLong()%90000000L))+50409360L;//" " this is concatenated to convert long to string
-            String pinnumber = " "+Math.abs((random.nextLong()%9000L)); 
+            long first7 = (random.nextLong() % 90000000L) + 5040936000000000L;
+            String cardnumber = "" + Math.abs(first7);//" " this is concatenated to convert long to string
+            long first3 = (random.nextLong() % 9000L) + 1000L;
+            String pinnumber = "" + Math.abs(first3);
             
             String services = "";
             if(c1.isSelected()){
-                services=services+" ATM CARD";
+                services=services+" ATM CARD"; 
             }else if(c2.isSelected()){
                 services=services+" Internet Banking";
             }else if(c1.isSelected()){
@@ -203,8 +205,12 @@ public class three extends JFrame implements ActionListener{
             }catch(Exception e){
                 System.out.println(e);  
             }
+            setVisible(false);
+            new deposit(pinnumber).setVisible(true);
+
         }else if(ae.getSource()==cancel){
-            System.exit(0);
+            setVisible(false);
+            new Login().setVisible(true);
         }
     }
     public static void main(String[] args) {
