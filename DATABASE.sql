@@ -36,5 +36,16 @@ cardnumber varchar(50),
 pinnumber varchar(20)
 );
 
-select * from login where cardnumber =  8047753150409360 and pinnumber = 7549 ;
+select * from login ;	
 truncate table login;
+
+create table bank(
+pin varchar(20),
+date varchar(50),
+type varchar(20),
+amount varchar(20)
+);
+select * from bank;	
+drop table bank;
+
+select cardnumber from login where pinumber = 6832;
